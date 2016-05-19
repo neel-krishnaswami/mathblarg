@@ -11,7 +11,7 @@ Intended for math blogging, hence the name.
 
 You should have the following software installed:
 
-* [PhantomJS](https://phantomjs.org) is used for 
+* [PhantomJS](https://phantomjs.org) is used for running MathJax.
 * The [omd](https://github.com/ocaml/omd) Markdown processor. It's on
   [OPAM](https://opam.ocaml.org/).
 * You'll need a local install of [MathJax](https://www.mathjax.org/).
