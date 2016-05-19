@@ -1,0 +1,24 @@
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/SVG"],
+    tex2jax: {
+      inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+      displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+  MathJax.Hub.Register.StartupHook("End", function () { alert("MathJax Done") });
+</script>
+<script type="text/javascript" src="file:///home/neel/MathJax/MathJax.js">
+</script>
+
+</head>
+<body>
+<p>This <em>is</em> at <em>test</em> of an equation: \(1 + 1 = 2\).</p>
+<p>Display
+$$
+2 \times 2 = 4 
+$$</p>
+

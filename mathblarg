@@ -1,0 +1,43 @@
+#!/bin/bash
+
+
+if [ ! $1 ]; then
+    echo "Usage: mathblarg filename (output to stdout)";
+    exit 1;
+fi
+
+if [ ! $MATHJAX ]; then
+    MATHJAX="$HOME/MathJax";
+    if [ ! -d $MATHJAX ]; then
+	echo "Can't find MathJax install directory -- set the $MATHJAX variable";
+	exist 1;
+    fi    
+fi
+
+TMPFILE=`mktemp tmp.XXXXX.html`;
+
+cat <<EOF > $TMPFILE
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/SVG"],
+    tex2jax: {
+      inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+      displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+  MathJax.Hub.Register.StartupHook("End", function () { window.callPhantom("MathJax Done") });
+</script>
+<script type="text/javascript" src="file://$MATHJAX/MathJax.js">
+</script>
+EOF
+
+omd -VS '<math>' -VE '</math>' $1 >> $TMPFILE;
+
+phantomjs mathblarg.js $TMPFILE;
+rm $TMPFILE;
+
+
+

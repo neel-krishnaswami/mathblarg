@@ -3,7 +3,7 @@
  *  A Phantom.js script using MathJax to
  *  convert the TeX equations in a file into SVG images.
  *  
- *  Usage:  phantomjs jaxtosvg.js input.html > output.html
+ *  Usage:  phantomjs mathblarg.js input.html > output.html
  *  
  */
 
@@ -26,11 +26,12 @@ var page = webpage.create();
 page.open(filename, function (status) {
     if (status !== "success") {
 	console.log("ERROR -- Something went wrong....");
+	phantom.exit();
     } else {
 	//
 	//  This gets called when the MathJax is done
 	//
-	page.onAlert = function (msg) {
+	page.onCallback = function (msg) {
 	    if (msg === "MathJax Done") {
 		console.log(page.evaluate(function () {
 		    // remove the MathJax processing info. 
@@ -62,8 +63,8 @@ page.open(filename, function (status) {
 	//
 	// Timeout after 10 seconds
 	//
-	page.evaluate(function () {
-	    setTimeout(function () {alert("MathJax Timeout")},10000);  
-	});
+//	page.evaluate(function () {
+//	    setTimeout(function () {window.callPhantom("MathJax Timeout")},10000);  
+//	});
     };
 });
